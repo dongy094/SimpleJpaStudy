@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
+
+    <table class="table table-bordered">
+        <tr>
+            <th>번호</th>
+            <td th:text="${boardForm.id}"></td>
+            <th>작성자</th>
+            <td th:text="${boardForm.userName}"></td>
+        </tr>
+        <tr>
+            <th>제목</th>
+            <td colspan="4" th:text="${boardForm.title}"></td>
+        </tr>
+        <tr>
+            <th>내용</th>
+            <td colspan="4" height="400" th:text="${boardForm.content}" ></td>
+        </tr>
+    </table>
+
+    <a href="#" th:href="@{/board/{boardId}/edit (boardId=${boardForm.id})}" class="btn btn-primary" role="button">수정</a>
+    <a href="#" th:href="@{/board/{boardId}/remove (boardId=${boardForm.id})}" class="btn btn-primary" role="button">삭제</a>
+
+    </a>
+    </br>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>

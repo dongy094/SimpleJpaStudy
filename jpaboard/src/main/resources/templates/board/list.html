@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <h1>BOARD</h1>
+
+    <div>
+        <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>게시판 번호</th>
+            <th>작성자</th>
+            <th>제목</th>
+            <th>조회수</th>
+            <th>작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="board : ${boardList}">
+            <td th:text="${board.id}"></td>
+            <td th:text="${board.userName}"></td>
+            <td>
+                 <a href="#" th:href="@{/board/{boardId}/view_board (boardId=${board.id})}">
+                     <span th:text="${board.title}" class="link-dark"></span>
+                 </a>
+            </td>
+            <td th:text="${board.hit}"></td>
+            <td th:text="${board.localDateTime}"></td>
+
+        </tr>
+        </tbody>
+        </table>
+    </div>
+<!--  페이징      -->
+
+
+
+    <div th:replace="fragments/footer :: footer" />
+
+</div> <!-- /container -->
+</body>
+</html>
