@@ -1,10 +1,15 @@
 package jpastudy.jpaboard.Service;
 
 import jpastudy.jpaboard.Dto.BoardForm;
+import jpastudy.jpaboard.Repository.BoardJpaRepository;
 import jpastudy.jpaboard.Repository.BoardRepository;
 import jpastudy.jpaboard.domain.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +20,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
 
+
     private final BoardRepository boardRepository;
+
+    //게시글 전부 가져오기
+    public List<Board> findBoards(){
+
+        return boardRepository.findAll();
+    }
 
     //
     public Board findOne(Long boardId){
@@ -38,11 +50,6 @@ public class BoardService {
         findBoard.setContent(boardForm.getContent());
 
         return findBoard;
-    }
-
-    //게시글 전부 가져오기
-    public List<Board> findBoards(){
-        return boardRepository.findAll();
     }
 
     @Transactional

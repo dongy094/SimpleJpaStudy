@@ -1,11 +1,15 @@
 package jpastudy.jpaboard.Controller;
 
 import jpastudy.jpaboard.Dto.BoardForm;
+import jpastudy.jpaboard.Repository.BoardJpaRepository;
 import jpastudy.jpaboard.Service.BoardService;
 import jpastudy.jpaboard.Service.MemberService;
 import jpastudy.jpaboard.domain.Board;
 import jpastudy.jpaboard.domain.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +23,24 @@ public class BoardController {
 
     private final BoardService boardService;
     private final MemberService memberService;
+    private final BoardJpaRepository boardJpaRepository;
 
     @GetMapping("/board/list")
-    public String board_list(Model model){
-        List<Board> boardList = boardService.findBoards();
+    public String board_list(Model model, @PageableDefault(size = 4) Pageable pageable){
+
+        Page<Board> boardList = boardJpaRepository.findAll(pageable);
+        int startPage = Math.max(1, boardList.getPageable().getPageNumber() - 4);
+        int endPage = Math.min(boardList.getTotalPages(), boardList.getPageable().getPageNumber() + 4);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+//        List<Board> boardList = boardService.findBoards();
         model.addAttribute("boardList",boardList);
+
         return "/board/list";
     }
+
+
 
     @GetMapping("/board/write")
     public String board_write(Model model){
