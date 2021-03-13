@@ -23,11 +23,14 @@ public class MemberService {
         return member.getId();
     }
 
-    private void validateMember(Member member) {
+    public int validateMember(Member member) {
         List<Member> byName = memberRepository.findByName(member.getUserName());
+        int check = 0;
         if(!byName.isEmpty()){
-           throw new IllegalStateException("이미 존재하는 회원 이름 ");
+            check = 1;
+            //throw new IllegalStateException("이미 존재하는 회원 이름 ");
         }
+        return check;
     }
 
     //

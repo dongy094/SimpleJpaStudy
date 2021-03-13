@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class MemberController {
         return "member/join";
     }
 
+    //회원가입 폼 서버로 전송
     @PostMapping("/member/new")
     public String create(@Valid MemberForm memberForm, BindingResult result){
 
@@ -48,10 +50,18 @@ public class MemberController {
 
         Member member = new Member();
         member.setUserName(memberForm.getUserName());
-        memberService.join(member);
+
+        int result_check = memberService.validateMember(member);
+        if(result_check==1){
+
+            return "/member/join";
+        }else{
+            memberService.join(member);
+
+            return "home";
+        }
 
 
-        return "home";
     }
 
 }

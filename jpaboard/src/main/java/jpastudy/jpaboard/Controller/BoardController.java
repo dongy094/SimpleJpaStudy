@@ -135,6 +135,6 @@ public class BoardController {
         Board find_board = boardService.findOne(boardId);
         boardService.board_remove(find_board);
 
-        return "board/list";
+        return "home";
     }
 }
