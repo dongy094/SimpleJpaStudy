@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -25,6 +27,14 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    @GetMapping("/member/logout")
+    public String logout(HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        session.removeAttribute("user_Id");
+        return "/home";
+    }
+
     @GetMapping("/member/list")
     public String member_list(Model model){
 
@@ -34,6 +44,7 @@ public class MemberController {
 
     }
 
+    //회원가입버튼
     @GetMapping("/member/new")
     public String createMember(Model model){
         model.addAttribute("memberForm", new MemberForm());
@@ -42,7 +53,7 @@ public class MemberController {
 
     //회원가입 폼 서버로 전송
     @PostMapping("/member/new")
-    public String create(@Valid MemberForm memberForm, BindingResult result){
+    public String create(@Valid MemberForm memberForm, BindingResult result, HttpServletRequest request){
 
         if(result.hasErrors()){
             return "/member/join";
@@ -50,13 +61,18 @@ public class MemberController {
 
         Member member = new Member();
         member.setUserName(memberForm.getUserName());
+        member.setPassword(memberForm.getPassword());
 
         int result_check = memberService.validateMember(member);
         if(result_check==1){
-
+            // 중복아이디 존재
             return "/member/join";
         }else{
-            memberService.join(member);
+            Long user_Id = memberService.join(member);
+            Member user_Member = memberService.findMember(user_Id);
+            HttpSession session = request.getSession();
+            session.setAttribute("user_Id",user_Id);
+            session.setAttribute("user_Name",user_Member.getUserName());
 
             return "home";
         }

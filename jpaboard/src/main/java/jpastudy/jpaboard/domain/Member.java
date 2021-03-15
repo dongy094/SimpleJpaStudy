@@ -19,4 +19,7 @@ public class Member {
 
     private String userName;
 
+    private Long password;
+
+
 }

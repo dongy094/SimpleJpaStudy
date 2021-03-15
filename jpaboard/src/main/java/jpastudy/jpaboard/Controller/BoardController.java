@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -54,10 +55,19 @@ public class BoardController {
     }
 
     @PostMapping("board/write")
-    public String write(BoardForm boardForm){
+    public String write(BoardForm boardForm, HttpServletRequest request){
 
         Board board = new Board();
-        board.setUserName(boardForm.getUserName());
+
+        board.setUserName((String) request.getSession().getAttribute("user_Name"));
+
+        //board.setUserName(boardForm.getUserName());
+        System.out.println("=============");
+        System.out.println(boardForm.getUserName());
+        System.out.println("=============");
+
+
+
         board.setTitle(boardForm.getTitle());
         board.setContent(boardForm.getContent());
         boardForm.board_hit();

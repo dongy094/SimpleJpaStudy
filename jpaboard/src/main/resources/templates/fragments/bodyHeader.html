@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="header" th:fragment="bodyHeader">
-    <a href="/"><h3 class="text-muted">HELLO BOARD</h3></a>
+
+    <div style='line-height:200%'>
+
+        <a href="/"><h3 class="text-muted">HELLO BOARD</h3></a>
+
+        <a th:if="${session.user_Id != null}">  <!-- 세션 값이 존재하면, 로그인 되었으면 -->
+
+                <a href="/member/logout"><h3 class="text-muted">LogOut</h3></a>
+        </a>
+    </div>
+
 </div>
