@@ -29,7 +29,22 @@ DataBase : `H2 DataBase`
 </br>
 
 ### 🔘 프로젝트 구현
-gif넣고 그거에 대한설명 어떻게 구현 했는지 기술
+
+|회원가입|글작성|
+|---|---|
+|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/signup.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/write_board.gif?raw=true" width="450" height="400">|
+
+|글수정|글삭제|
+|---|---|
+|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/update_board.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/delete_board.gif?raw=true" width="450" height="400">|
+
+|페이징|
+|---|
+|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/paging.gif?raw=true" width="450" height="400">|
+
+___
+
+
 
 </br>
 
