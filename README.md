@@ -89,6 +89,6 @@ public return_type boardList(Model model , @PageableDefault(size = 4) Pageable p
 
 - 데이터 수정할때 `변경감지` 이용해서 데이터 수정하기! </br>
   => 객체를 새로 만들어서 값을 세팅하고 그 객체를 merge를 통해서 업데이트 한다면??? </br>
-　　그때 만약 값 변경이 없어서 세팅하지 않은 변수가 있다면 객체의 해당 변수는 null이되고 merge를 하면 싹 다 　　갈아 엎어서 결국 null값이 들어가는 위험한 상황이 발생한다.
+그때 만약 값 변경이 없어서 세팅하지 않은 변수가 있다면 객체의 해당 변수는 null이되고 merge를 하면 싹 다 갈아 엎어서 결국 null값이 들어가는 위험한 상황이 발생한다.
 - `thymeleaf`를 사용하여 front단을 작성하는 것이 익숙하지 않아서 작성하는데 좀 힘들었다.
 - `spring boot`를 사용하니까 개발을 위한 환경설정을 하는데 `spring framework`를 사용할때 보다 빠르게 세팅할 수 있어서 좋았다.
