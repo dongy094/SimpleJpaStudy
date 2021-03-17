@@ -41,7 +41,7 @@ DataBase : `H2 DataBase`
 |페이징처리|인터셉터처리|
 |---|---|
 |<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/paging.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file2/interceptor.gif?raw=true" width="450" height="400">|
-||비로그인시 인터셉터 처리, 회원가입 페이지로 유도|
+||비로그인시 인터셉터 처리|
 
 
 
