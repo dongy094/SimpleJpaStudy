@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -79,7 +80,7 @@ public class BoardController {
     }
 
     @GetMapping("/board/{boardId}/edit")
-    public String updateBoardForm(@PathVariable("boardId") Long boardId, Model model){
+    public String updateBoardForm(@PathVariable("boardId") Long boardId, Model model,HttpServletRequest request){
 
         Board find_board = boardService.findOne(boardId);
 
@@ -94,6 +95,7 @@ public class BoardController {
         board.setLocalDateTime(LocalDateTime.now());
 
         model.addAttribute("boardForm",board);
+        HttpSession session = request.getSession();
 
         return "/board/updateBoardForm";
     }

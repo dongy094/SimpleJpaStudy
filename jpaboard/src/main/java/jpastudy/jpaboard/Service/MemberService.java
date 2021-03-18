@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Service
@@ -40,6 +41,10 @@ public class MemberService {
 
     public List<Member> findMembers(){
         return memberRepository.membersAll();
+    }
+
+    public Member signin(String user_name, Long user_password){
+        return memberRepository.signinMember(user_name,user_password);
     }
 
 }

@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @Controller
@@ -53,7 +56,7 @@ public class MemberController {
 
     //회원가입 폼 서버로 전송
     @PostMapping("/member/new")
-    public String create(@Valid MemberForm memberForm, BindingResult result, HttpServletRequest request){
+    public String create(@Valid MemberForm memberForm, BindingResult result, HttpServletRequest request, HttpServletResponse response ) throws IOException {
 
         if(result.hasErrors()){
             return "/member/join";
@@ -66,6 +69,11 @@ public class MemberController {
         int result_check = memberService.validateMember(member);
         if(result_check==1){
             // 중복아이디 존재
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('중복된 아이디 입니다.'); history.go(-1);</script>");
+            out.flush();
+
             return "/member/join";
         }else{
             Long user_Id = memberService.join(member);
@@ -77,7 +85,25 @@ public class MemberController {
             return "home";
         }
 
+    }
 
+    @GetMapping("/member/signin")
+    public String member_signup(Model model){
+        model.addAttribute("memberForm", new MemberForm());
+        return "/member/signin";
+    }
+
+    @PostMapping("/member/signin")
+    public String member_signup(@Valid MemberForm memberForm, HttpServletRequest request){
+
+        Member signin_member = memberService.signin(memberForm.getUserName(), memberForm.getPassword());
+        if(signin_member!=null){
+            HttpSession session = request.getSession();
+            session.setAttribute("user_Id",signin_member.getId());
+            session.setAttribute("user_Name",signin_member.getUserName());
+        }
+
+        return "/home";
     }
 
 }

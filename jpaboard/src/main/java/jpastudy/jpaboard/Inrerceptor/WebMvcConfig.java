@@ -13,7 +13,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
                 .addPathPatterns("/board/*") //적용할 패턴, ex) /*모든 경로
                 .addPathPatterns("/member/*")
                 .excludePathPatterns("/board/list")  // 인터셉터 예외
-                .excludePathPatterns("/member/new"); //로그인 쪽은 예외처리를 한다.
+                .excludePathPatterns("/member/new") //회원가입 쪽은 예외처리를 한다.
+                .excludePathPatterns("/member/signin"); //로그인 쪽은 예외처리를 한다.
 
     }
 

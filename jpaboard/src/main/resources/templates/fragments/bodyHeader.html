@@ -7,8 +7,12 @@
         <a href="/"><h3 class="text-muted">HELLO BOARD</h3></a>
 
         <a th:if="${session.user_Id != null}">  <!-- 세션 값이 존재하면, 로그인 되었으면 -->
-
-                <a href="/member/logout"><h3 class="text-muted">LogOut</h3></a>
+                <thead>
+                    <tr>
+                        <th><a href="/member/logout"><h3 class="text-muted">LogOut</h3></a></th>
+                        <th>안녕하세요 </th><td th:text="${session.user_Name}"></td><th> 님</th>
+                    </tr>
+                </thead>
         </a>
     </div>
 

@@ -11,6 +11,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.TypedQuery;
+
 import static org.junit.Assert.*;
 
 
@@ -37,4 +39,23 @@ public class MemberServiceTest {
 
     }
 
+    
+    @Test
+    public void 로그인() throws Exception{
+        //given
+        Member member = new Member();
+        member.setUserName("UserA");
+        member.setPassword(1234L);
+        Long memberId = memberService.join(member);
+        //when
+
+        Member userA = memberService.signin("UserA", 1234L);
+        System.out.println("=========");
+        System.out.println("userA.getUserName() = " + userA.getUserName());
+        System.out.println("=========");
+
+        //then
+    
+    }
+    
 }

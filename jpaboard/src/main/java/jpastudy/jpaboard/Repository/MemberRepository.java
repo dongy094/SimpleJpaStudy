@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -37,6 +37,13 @@ public class MemberRepository {
     public List<Member> membersAll(){
         return em.createQuery("select m from Member m")
                 .getResultList();
+    }
+
+    public Member signinMember(String user_Name, Long pass_word){
+        return em.createQuery("select m from Member m where m.userName = :name and m.password = :pass_word", Member.class)
+                .setParameter("name",user_Name)
+                .setParameter("pass_word",pass_word)
+                .getSingleResult();
     }
 
 }
