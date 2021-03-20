@@ -12,7 +12,7 @@
 #### version 1.1
 - Session을 활용하여 사용자 정보 유지 기능 - 추가
 - Interceptor를 활용하여 게시판 접근관리(비로그인 시 특정 게시판 접근불가) - 추가
-#### version 1.1
+#### version 1.2
 - SingIn 기능 - 추가
 
 </br>
@@ -46,6 +46,9 @@ DataBase : `H2 DataBase`
 |<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/paging.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file2/interceptor.gif?raw=true" width="450" height="400">|
 ||비로그인시 인터셉터 처리|
 
+|로그인||
+|---|---|
+|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file2/singin.gif?raw=true" width="450" height="400">||
 
 
 </br>
