@@ -12,6 +12,8 @@
 #### version 1.1
 - Session을 활용하여 사용자 정보 유지 기능 - 추가
 - Interceptor를 활용하여 게시판 접근관리(비로그인 시 특정 게시판 접근불가) - 추가
+#### version 1.1
+- SingIn 기능 - 추가
 
 </br>
 
