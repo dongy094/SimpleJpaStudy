@@ -12,7 +12,7 @@
 #### version 1.1
 - Session을 활용하여 사용자 정보 유지 기능 - 추가
 - Interceptor를 활용하여 게시판 접근관리(비로그인 시 특정 게시판 접근불가) - 추가
-#### version 1.1
+#### version 1.2
 - SingIn 기능 - 추가
 
 </br>
@@ -46,11 +46,15 @@ DataBase : `H2 DataBase`
 |<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/paging.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file2/interceptor.gif?raw=true" width="450" height="400">|
 ||비로그인시 인터셉터 처리|
 
+|로그인||
+|---|---|
+|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file2/singin.gif?raw=true" width="450" height="400">||
 
 
 </br>
 
 ### 🔘 마무리
+- `JPArepository`를 상속받은 인터페이스를 활용한다면 간단한 `CRUD`는 구현필요없이 간단하게 가져다 쓸 수 있다는 것을 알았다.
 - 프로젝트를 진행하면서 일부 간단한 쿼리문 처리는 `JPArepository`를 상속받은 개체를 통해서 별다른 구현없이 또는 규칙에 맞게 인터페이스를 작성하면 손쉽게 데이터를 가져올 수 있다는 것을 알게되었다.
 여기서 구현한 인터페이스를 따로 작성할 필요가 없다.
 ```java
