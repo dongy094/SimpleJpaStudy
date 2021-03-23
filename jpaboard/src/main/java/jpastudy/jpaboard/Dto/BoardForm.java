@@ -15,10 +15,5 @@ public class BoardForm {
 
     private LocalDateTime localDateTime;
 
-    private int hit;
 
-
-    public int board_hit() {
-        return 0;
-    }
 }
