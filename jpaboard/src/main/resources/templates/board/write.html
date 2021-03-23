@@ -18,17 +18,6 @@
                    placeholder="이름을 입력하세요" disabled/>
         </div>
 
-<!--        <div class="form-group">-->
-<!--            <label th:for="UserName">작성자</label>-->
-<!--            <select name="UserName" id="UserName" class="form-control">-->
-<!--                <option value="">작성자 선택</option>-->
-<!--                <option th:each="members : ${member_list}"}-->
-<!--                        th:value="${members.userName}"-->
-<!--                        th:text="${members.userName}"-->
-<!--                    />-->
-<!--            </select>-->
-<!--        </div>-->
-
         <div class="form-group">
             <label th:for="title">제목</label>
             <input type="text" th:field="*{title}" class="form-control"

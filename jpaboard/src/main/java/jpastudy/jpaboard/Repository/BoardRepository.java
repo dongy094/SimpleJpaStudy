@@ -1,6 +1,8 @@
 package jpastudy.jpaboard.Repository;
 
+import jpastudy.jpaboard.Dto.CommentForm;
 import jpastudy.jpaboard.domain.Board;
+import jpastudy.jpaboard.domain.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -41,6 +43,17 @@ public class BoardRepository {
 
     public void remove(Board find_board){
         em.remove(find_board);
+    }
+
+    // commentFn
+    public void save_comment(Comment comment){
+        em.persist(comment);
+    }
+
+    public List<Comment> findAllComments(Long boardId){
+        return em.createQuery("", Comment.class)
+                .setParameter("boardId",boardId)
+                .getResultList();
     }
 
 

@@ -1,15 +1,13 @@
 package jpastudy.jpaboard.Service;
 
 import jpastudy.jpaboard.Dto.BoardForm;
-import jpastudy.jpaboard.Repository.BoardJpaRepository;
+import jpastudy.jpaboard.Dto.CommentForm;
 import jpastudy.jpaboard.Repository.BoardRepository;
+import jpastudy.jpaboard.Repository.MemberRepository;
 import jpastudy.jpaboard.domain.Board;
+import jpastudy.jpaboard.domain.Comment;
+import jpastudy.jpaboard.domain.Member;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +20,11 @@ public class BoardService {
 
 
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
+
 
     //게시글 전부 가져오기
-    public List<Board> findBoards(){
+    public List<Board> findBoards(Long boardId){
 
         return boardRepository.findAll();
     }
@@ -56,5 +56,29 @@ public class BoardService {
     public void board_remove(Board find_board){
         boardRepository.remove(find_board);
     }
+
+
+    // commentFn
+    @Transactional
+    public void save_comment(Long boardId, String userName ,String userComment, Long userId){
+
+        // 댓글작성자 id, board id, comment내용 필요
+
+        Board board = boardRepository.findOne(boardId);
+        //Member member = memberRepository.findOne(memberId);
+
+        // comment 생성
+        Comment comment = Comment.createComment(board, userName,userComment,userId);
+        
+        // comment 저장
+        boardRepository.save_comment(comment);
+
+    }
+
+    public List<Comment> findComments(Long boardId){
+        return boardRepository.findAllComments(boardId);
+    }
+
+
 
 }

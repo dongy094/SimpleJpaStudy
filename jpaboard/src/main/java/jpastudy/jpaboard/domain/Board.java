@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 @Entity
@@ -16,6 +18,7 @@ public class Board {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE,
         generator = "BOARD_SEQ_GENERATOR" )
+    @Column(name = "board_id")
     private Long id;
 
     private String userName;
@@ -24,10 +27,8 @@ public class Board {
 
     private LocalDateTime localDateTime;
 
-    private int hit;
+    @OneToMany(mappedBy = "board")
+    private List<Comment> comments = new ArrayList<>();
 
-    public void board_hit(){
-        this.hit += 1;
-    }
 
 }

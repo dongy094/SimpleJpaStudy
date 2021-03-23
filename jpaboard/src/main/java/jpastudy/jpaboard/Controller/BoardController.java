@@ -1,10 +1,12 @@
 package jpastudy.jpaboard.Controller;
 
 import jpastudy.jpaboard.Dto.BoardForm;
+import jpastudy.jpaboard.Dto.CommentForm;
 import jpastudy.jpaboard.Repository.BoardJpaRepository;
 import jpastudy.jpaboard.Service.BoardService;
 import jpastudy.jpaboard.Service.MemberService;
 import jpastudy.jpaboard.domain.Board;
+import jpastudy.jpaboard.domain.Comment;
 import jpastudy.jpaboard.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -71,8 +73,7 @@ public class BoardController {
 
         board.setTitle(boardForm.getTitle());
         board.setContent(boardForm.getContent());
-        boardForm.board_hit();
-        board.setHit(boardForm.getHit());
+
         board.setLocalDateTime(LocalDateTime.now());
         boardService.writeBoard(board);
 
@@ -127,18 +128,36 @@ public class BoardController {
     public String view_board(@PathVariable("boardId") Long boardId, Model model){
 
         Board find_board = boardService.findOne(boardId);
-        find_board.board_hit();
 
         BoardForm boardForm = new BoardForm();
+
 
         boardForm.setId(find_board.getId());
         boardForm.setUserName(find_board.getUserName());
         boardForm.setTitle(find_board.getTitle());
         boardForm.setContent(find_board.getContent());
-        boardForm.setHit(find_board.getHit());
 
         model.addAttribute("boardForm",boardForm);
+
+        model.addAttribute("commentForm",new CommentForm());
         return "board/view_board";
+    }
+
+    @PostMapping("/board/{boardId}/view_board")
+    public String write_comment(@PathVariable("boardId") Long boardId, HttpServletRequest request, @ModelAttribute("commentForm") CommentForm commentForm){
+
+        Long memberId = (Long) request.getSession().getAttribute("user_Id");
+
+        System.out.println("============================");
+        System.out.println("commentForm = " + commentForm.getUserComment());
+        System.out.println("============================");
+
+        boardService.save_comment(boardId,commentForm.getUserName(),commentForm.getUserComment(),memberId);
+
+//        return "board/"+boardId+"/view_board";
+//        String url = "board"+boardId+"/view_board";
+//        return new ModelAndView(url);
+        return "home";
     }
 
     @GetMapping("/board/{boardId}/remove")
@@ -149,4 +168,16 @@ public class BoardController {
 
         return "home";
     }
+
+    @GetMapping("comments/test")
+    public String find_comments(Long boardId, Model model){
+        List<Comment> commentForms = boardService.findComments(boardId);
+        model.addAttribute("comments",commentForms);
+        System.out.println("commentForms = " + commentForms);
+        return "home";
+    }
+
+
+
+
 }
