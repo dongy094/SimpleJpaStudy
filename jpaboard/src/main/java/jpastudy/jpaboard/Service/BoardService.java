@@ -75,6 +75,7 @@ public class BoardService {
 
     }
 
+    @Transactional
     public List<Comment> findComments(Long boardId){
         return boardRepository.findAllComments(boardId);
     }

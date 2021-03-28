@@ -51,7 +51,7 @@ public class BoardRepository {
     }
 
     public List<Comment> findAllComments(Long boardId){
-        return em.createQuery("", Comment.class)
+        return em.createQuery("select c from Comment c where board_id = :boardId", Comment.class)
                 .setParameter("boardId",boardId)
                 .getResultList();
     }

@@ -34,14 +34,17 @@
     </br>
 
         <table class="table">
-            <tbody>
+            <thead>
                 <tr>
                     <td>이름</td>
                     <td>코멘트</td>
                 </tr>
-
-
-
+            </thead>
+            <tbody>
+                <tr th:each="comment : ${comments}">
+                    <td th:text="${comment.userName}"></td>
+                    <td th:text="${comment.userComment}"></td>
+                </tr>
             </tbody>
         </table>
 
@@ -51,17 +54,23 @@
 <!--    -->
     <!-- comment Fn      board id,  // user id, comment는 form으로 넘기기 th:object="${CommentForm}" view보드 갈때 폼 가지고 가야함   -->
 <!--    <form action="@{/board/${boardId}/write_comment} (boardId=${boardForm.id})" th:object="${commentForm}" method="post">-->
-    <form th:object="${commentForm}" method="post" >
-            <div class="form-group">
-                <label th:for="userName">이름</label>
-                <input type="text" readonly class="form-control-plaintext" name = "userName" id="userName" th:value="${session.user_Name}">
 
-                <label th:for="userComment">내용</label>
-                <input type="text" class="form-control" name="userComment" id="userComment">
+    <a th:if="${session.user_Id != null}">
+        <form th:object="${commentForm}" method="post" >
 
-            </div>
-        <button type="submit" class="btn btn-primary">입력</button>
-    </form>
+                    <div class="form-group">
+
+                            <label th:for="userName">이름</label>
+                                <input type="text" readonly class="form-control-plaintext" name = "userName" id="userName" th:value="${session.user_Name}">
+                            <label th:for="userComment">내용</label>
+                                <input type="text" class="form-control" name="userComment" id="userComment" placeholder="댓글을 입력하세요">
+
+                    </div>
+
+            <button type="submit" class="btn btn-primary">입력</button>
+
+        </form>
+    </a>
 
 
     </a>

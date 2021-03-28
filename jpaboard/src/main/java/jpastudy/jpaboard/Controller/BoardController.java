@@ -9,6 +9,7 @@ import jpastudy.jpaboard.domain.Board;
 import jpastudy.jpaboard.domain.Comment;
 import jpastudy.jpaboard.domain.Member;
 import lombok.RequiredArgsConstructor;
+import org.dom4j.rule.Mode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -128,6 +129,8 @@ public class BoardController {
     public String view_board(@PathVariable("boardId") Long boardId, Model model){
 
         Board find_board = boardService.findOne(boardId);
+        List<Comment> commentForms = boardService.findComments(boardId);
+
 
         BoardForm boardForm = new BoardForm();
 
@@ -138,27 +141,53 @@ public class BoardController {
         boardForm.setContent(find_board.getContent());
 
         model.addAttribute("boardForm",boardForm);
-
+        model.addAttribute("comments",commentForms);
         model.addAttribute("commentForm",new CommentForm());
         return "board/view_board";
     }
 
+    //  comment insert
     @PostMapping("/board/{boardId}/view_board")
-    public String write_comment(@PathVariable("boardId") Long boardId, HttpServletRequest request, @ModelAttribute("commentForm") CommentForm commentForm){
+    public String write_comment(@PathVariable("boardId") Long boardId, HttpServletRequest request, @ModelAttribute("commentForm") CommentForm commentForm,Model model){
 
         Long memberId = (Long) request.getSession().getAttribute("user_Id");
-
-        System.out.println("============================");
-        System.out.println("commentForm = " + commentForm.getUserComment());
-        System.out.println("============================");
-
         boardService.save_comment(boardId,commentForm.getUserName(),commentForm.getUserComment(),memberId);
+
+        Board find_board = boardService.findOne(boardId);
+        List<Comment> commentForms = boardService.findComments(boardId);
+
+        BoardForm boardForm = new BoardForm();
+        boardForm.setId(find_board.getId());
+        boardForm.setUserName(find_board.getUserName());
+        boardForm.setTitle(find_board.getTitle());
+        boardForm.setContent(find_board.getContent());
+
+        model.addAttribute("boardForm",boardForm);
+        model.addAttribute("comments",commentForms);
+        model.addAttribute("commentForm",new CommentForm());
+        return "board/view_board";
 
 //        return "board/"+boardId+"/view_board";
 //        String url = "board"+boardId+"/view_board";
 //        return new ModelAndView(url);
+        //return "board/view_board";
+        //return "home";
+    }
+
+    // 보드 댓글 가져오는거 됨 이거 view에 뿌려야됨
+    // form에 담아서 뿌리는게 좋음
+    // Test
+    @GetMapping("comments/test")
+    public String find_comments(Long boardId, Model model){
+        List<Comment> commentForms = boardService.findComments(1L);
+        model.addAttribute("comments",commentForms);
+
+        System.out.println("commentForms = " + commentForms.get(0).getUserName());
+
         return "home";
     }
+    // Test
+
 
     @GetMapping("/board/{boardId}/remove")
     public String board_remove(@PathVariable Long boardId){
@@ -166,14 +195,6 @@ public class BoardController {
         Board find_board = boardService.findOne(boardId);
         boardService.board_remove(find_board);
 
-        return "home";
-    }
-
-    @GetMapping("comments/test")
-    public String find_comments(Long boardId, Model model){
-        List<Comment> commentForms = boardService.findComments(boardId);
-        model.addAttribute("comments",commentForms);
-        System.out.println("commentForms = " + commentForms);
         return "home";
     }
 

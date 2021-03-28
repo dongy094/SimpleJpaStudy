@@ -9,6 +9,13 @@ import lombok.Setter;
 @Getter
 public class CommentForm {
 
+    // comment id
+   // private Long id;
+    //
+
+//    private Long boardId;
+//    private Long userId;
+
     private String userName;
     private String userComment;
 

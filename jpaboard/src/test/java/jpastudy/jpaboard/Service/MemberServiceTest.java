@@ -1,6 +1,7 @@
 package jpastudy.jpaboard.Service;
 
 import jpastudy.jpaboard.Repository.MemberRepository;
+import jpastudy.jpaboard.domain.Comment;
 import jpastudy.jpaboard.domain.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -53,6 +54,20 @@ public class MemberServiceTest {
         System.out.println("=========");
         System.out.println("userA.getUserName() = " + userA.getUserName());
         System.out.println("=========");
+
+        //then
+    
+    }
+    
+    
+    @Test
+    public void 코멘트() throws Exception{
+        //given
+        Member member = new Member();
+        member.setUserName("UserA");
+        member.setPassword(1234L);
+        Long memberId = memberService.join(member);
+        //when
 
         //then
     
