@@ -10,12 +10,12 @@
 - JPA를 활용한 게시판 CRUD구현
 - JPA를 활용하여 페이징 구현
 #### version 1.1
-- Session을 활용하여 사용자 정보 유지 기능 - 추가
-- Interceptor를 활용하여 게시판 접근관리(비로그인 시 특정 게시판 접근불가) - 추가
+- Session을 활용하여 사용자 정보 유지 기능
+- Interceptor를 활용하여 게시판 접근관리(비로그인 시 특정 게시판 접근불가)
 #### version 1.2
-- SingIn 기능 - 추가
+- SingIn 기능
 #### version 1.2
-- 댓글 기능 - 추가
+- 댓글 기능
 
 </br>
 
