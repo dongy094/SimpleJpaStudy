@@ -16,6 +16,9 @@
 - SingIn 기능
 #### version 1.2
 - 댓글 기능
+___
+#### 구현중
+- 댓글 삭제, 수정 기능
 
 </br>
 
@@ -48,9 +51,10 @@ DataBase : `H2 DataBase`
 |<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/paging.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file2/interceptor.gif?raw=true" width="450" height="400">|
 ||비로그인시 인터셉터 처리|
 
-|로그인||
+|로그인|댓글달기|
 |---|---|
-|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file2/singin.gif?raw=true" width="450" height="400">||
+|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file2/singin.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file2/commentFn.gif?raw=true" width="450" height="400">|
+
 
 
 </br>
