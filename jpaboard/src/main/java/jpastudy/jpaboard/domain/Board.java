@@ -1,5 +1,6 @@
 package jpastudy.jpaboard.domain;
 
+import jpastudy.jpaboard.Dto.BoardForm;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,7 @@ public class Board {
     @Column(name = "board_id")
     private Long id;
 
-    private String userName;
+    //0402  private String userName;
     private String title;
     private String content;
 
@@ -30,5 +31,33 @@ public class Board {
     @OneToMany(mappedBy = "board")
     private List<Comment> comments = new ArrayList<>();
 
+
+
+    //0402
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    //0402
+    //연관관계 메서드
+    public void setMember(Member member) {
+        this.member = member;
+        member.getBoards().add(this);
+    }
+
+    //0402
+    //생성 메서드
+    public static Board createBoard(Member member,
+                                    BoardForm boardForm){
+
+        Board board = new Board();
+        board.setTitle(boardForm.getTitle());
+        board.setContent(boardForm.getContent());
+        board.setLocalDateTime(boardForm.getLocalDateTime());
+        board.setMember(member);
+        return board;
+
+    }
+    // comment는x 초기에는 없음
 
 }

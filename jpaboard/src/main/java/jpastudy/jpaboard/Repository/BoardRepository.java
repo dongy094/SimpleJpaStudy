@@ -27,6 +27,7 @@ public class BoardRepository {
 
     // 작성한 글 저장하기
     public void save(Board board){
+
         if(board.getId() == null){
             em.persist(board);
         }else{
@@ -46,12 +47,14 @@ public class BoardRepository {
     }
 
     // commentFn
+
     public void save_comment(Comment comment){
         em.persist(comment);
     }
 
     public List<Comment> findAllComments(Long boardId){
-        return em.createQuery("select c from Comment c where board_id = :boardId", Comment.class)
+        return em.createQuery("select c from Comment c where board_id" +
+                                      " = :boardId", Comment.class)
                 .setParameter("boardId",boardId)
                 .getResultList();
     }

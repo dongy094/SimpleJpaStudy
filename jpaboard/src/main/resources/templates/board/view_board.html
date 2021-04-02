@@ -23,7 +23,7 @@
         </tr>
     </table>
 
-    <tr th:if="${session.user_Name} == ${{boardForm.userName}}">
+    <tr th:if="${session.user_Name} == ${boardForm.userName}">
         <a href="#" th:href="@{/board/{boardId}/edit (boardId=${boardForm.id})}" class="btn btn-primary" role="button">수정</a>
         <a href="#" th:href="@{/board/{boardId}/remove (boardId=${boardForm.id})}" class="btn btn-danger" role="button">삭제</a>
     </tr>

@@ -49,18 +49,17 @@ public class Comment {
 //        member.setComment(this);
 //    }
 
-
     // 생성 메서드 //
-    public static Comment createComment(Board board, String userName,String comments,Long userId){
+    public static Comment createComment(Board board,
+                                        String userName,
+                                        String comments,
+                                        Long userId){
         Comment comment = new Comment();
         comment.setBoard(board);
         comment.setUserName(userName);
         comment.setUserId(userId);
-       // comment.setMember(member);
         comment.setUserComment(comments);
         return comment;
     }
-
-
 
 }

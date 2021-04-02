@@ -30,6 +30,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    // 로그아웃
     @GetMapping("/member/logout")
     public String logout(HttpServletRequest request){
 
@@ -38,6 +39,7 @@ public class MemberController {
         return "/home";
     }
 
+    // 전체멤버 보기
     @GetMapping("/member/list")
     public String member_list(Model model){
 
@@ -47,7 +49,7 @@ public class MemberController {
 
     }
 
-    //회원가입버튼
+    //회원가입으로이동
     @GetMapping("/member/new")
     public String createMember(Model model){
         model.addAttribute("memberForm", new MemberForm());
@@ -56,7 +58,8 @@ public class MemberController {
 
     //회원가입 폼 서버로 전송
     @PostMapping("/member/new")
-    public String create(@Valid MemberForm memberForm, BindingResult result, HttpServletRequest request, HttpServletResponse response ) throws IOException {
+    public String create(@Valid MemberForm memberForm, BindingResult result,
+                         HttpServletRequest request, HttpServletResponse response ) throws IOException {
 
         if(result.hasErrors()){
             return "/member/join";
@@ -94,9 +97,11 @@ public class MemberController {
     }
 
     @PostMapping("/member/signin")
-    public String member_signup(@Valid MemberForm memberForm, HttpServletRequest request){
+    public String member_signup(@Valid MemberForm memberForm,
+                                HttpServletRequest request){
 
-        Member signin_member = memberService.signin(memberForm.getUserName(), memberForm.getPassword());
+        Member signin_member = memberService.signin(memberForm.getUserName(),
+                                                    memberForm.getPassword());
         if(signin_member!=null){
             HttpSession session = request.getSession();
             session.setAttribute("user_Id",signin_member.getId());

@@ -23,7 +23,7 @@
         <tbody>
         <tr th:each="board : ${boardList}">
             <td th:text="${board.id}"></td>
-            <td th:text="${board.userName}"></td>
+            <td th:text="${board.member.userName}"></td>
             <td>
                  <a href="#" th:href="@{/board/{boardId}/view_board (boardId=${board.id})}">
                      <span th:text="${board.title}" class="link-dark"></span>

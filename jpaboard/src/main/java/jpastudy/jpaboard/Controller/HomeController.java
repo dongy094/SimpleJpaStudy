@@ -15,16 +15,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HomeController {
 
-
-
-
     @RequestMapping("/")
     public String home(){
         return "home";
     }
-
-
-
-
 
 }

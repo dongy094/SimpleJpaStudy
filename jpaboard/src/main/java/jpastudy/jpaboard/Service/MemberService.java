@@ -25,13 +25,15 @@ public class MemberService {
     }
 
     public int validateMember(Member member) {
-        List<Member> byName = memberRepository.findByName(member.getUserName());
+        List<Member> members = memberRepository.findByName(member.getUserName());
+
         int check = 0;
-        if(!byName.isEmpty()){
+        if(!members.isEmpty()){
             check = 1;
             //throw new IllegalStateException("이미 존재하는 회원 이름 ");
         }
         return check;
+
     }
 
     //
@@ -43,8 +45,10 @@ public class MemberService {
         return memberRepository.membersAll();
     }
 
-    public Member signin(String user_name, Long user_password){
-        return memberRepository.signinMember(user_name,user_password);
+    public Member signin(String user_name,
+                         Long user_password){
+        return memberRepository.signinMember(user_name,
+                                            user_password);
     }
 
 }

@@ -52,7 +52,7 @@ public class BoardController {
 
         List<Member> member_list = memberService.findMembers();
 
-        model.addAttribute("member_list",member_list);
+        //model.addAttribute("member_list",member_list);
         model.addAttribute("boardForm",new BoardForm());
 
         return "/board/write";
@@ -61,49 +61,74 @@ public class BoardController {
     @PostMapping("board/write")
     public String write(BoardForm boardForm, HttpServletRequest request){
 
-        Board board = new Board();
+        Long userId = (Long) request.getSession().getAttribute("user_Id");
 
-        board.setUserName((String) request.getSession().getAttribute("user_Name"));
+        //0402
+        //Board board = new Board();
 
+        //0402
+        boardForm.setLocalDateTime(LocalDateTime.now());
+        boardService.save_board(userId,boardForm);
+
+        //0402
+        //board.setUserName((String) request.getSession().getAttribute("user_Name"));
         //board.setUserName(boardForm.getUserName());
-        System.out.println("=============");
-        System.out.println(boardForm.getUserName());
-        System.out.println("=============");
 
-
-
-        board.setTitle(boardForm.getTitle());
-        board.setContent(boardForm.getContent());
-
-        board.setLocalDateTime(LocalDateTime.now());
-        boardService.writeBoard(board);
+        //0402
+//        board.setTitle(boardForm.getTitle());
+//        board.setContent(boardForm.getContent());
+//        board.setLocalDateTime(LocalDateTime.now());
+//
+//        boardService.writeBoard(board);
 
         return "home";
     }
 
     @GetMapping("/board/{boardId}/edit")
-    public String updateBoardForm(@PathVariable("boardId") Long boardId, Model model,HttpServletRequest request){
+    public String updateBoardForm(@PathVariable("boardId") Long boardId,
+                                  Model model,HttpServletRequest request){
 
         Board find_board = boardService.findOne(boardId);
 
-        Board board = new Board();
+        BoardForm boardForm = new BoardForm();
+        boardForm.setId(boardId);
+        boardForm.setTitle(find_board.getTitle());
+        boardForm.setContent(find_board.getContent());
+        boardForm.setUserName(find_board.getMember().getUserName());
+        boardForm.setLocalDateTime(find_board.getLocalDateTime());
 
-        board.setId(find_board.getId());
-
-        board.setUserName(find_board.getUserName());
-        board.setTitle(find_board.getTitle());
-        board.setContent(find_board.getContent());
-
-        board.setLocalDateTime(LocalDateTime.now());
-
-        model.addAttribute("boardForm",board);
-        HttpSession session = request.getSession();
+        model.addAttribute("boardForm",boardForm);
 
         return "/board/updateBoardForm";
+
+        ////0402ni
+//        Board board = new Board();
+//
+//        board.setId(find_board.getId());
+//
+//        //0402
+//        Long memberId = (Long) request.getSession().getAttribute("user_Id");
+//        Member member = memberService.findMember(memberId);
+//        board.setMember(member);
+//
+//        //board.setUserName(find_board.getUserName());
+//
+//        board.setTitle(find_board.getTitle());
+//        board.setContent(find_board.getContent());
+//
+//        board.setLocalDateTime(LocalDateTime.now());
+//
+//        //0402
+//        board.setComments(find_board.getComments());
+
+        ////0402ni
+
+
     }
 
     @PostMapping("/board/{boardId}/edit")
-    public String updateBoard(@PathVariable Long boardId ,@ModelAttribute("boardForm") BoardForm boardForm){
+    public String updateBoard(@PathVariable Long boardId ,
+                              @ModelAttribute("boardForm") BoardForm boardForm){
 
 //        Board board = new Board();
 //
@@ -120,23 +145,26 @@ public class BoardController {
 
           // 변경 감지를 통한 변경
           boardService.updateBoard(boardId,boardForm);
-          
-        
+
+
         return "home";
     }
 
     @GetMapping("/board/{boardId}/view_board")
-    public String view_board(@PathVariable("boardId") Long boardId, Model model){
+    public String view_board(@PathVariable("boardId") Long boardId, Model model,HttpServletRequest request){
+
+        //0402
+        Long memberId = (Long) request.getSession().getAttribute("user_Id");
+        Member member = memberService.findMember(memberId);
 
         Board find_board = boardService.findOne(boardId);
         List<Comment> commentForms = boardService.findComments(boardId);
 
-
         BoardForm boardForm = new BoardForm();
-
-
         boardForm.setId(find_board.getId());
-        boardForm.setUserName(find_board.getUserName());
+
+
+        boardForm.setUserName(member.getUserName());
         boardForm.setTitle(find_board.getTitle());
         boardForm.setContent(find_board.getContent());
 
@@ -144,21 +172,30 @@ public class BoardController {
         model.addAttribute("comments",commentForms);
         model.addAttribute("commentForm",new CommentForm());
         return "board/view_board";
+
+        //0402 boardForm.setUserName(find_board.getUserName());
     }
 
     //  comment insert
     @PostMapping("/board/{boardId}/view_board")
-    public String write_comment(@PathVariable("boardId") Long boardId, HttpServletRequest request, @ModelAttribute("commentForm") CommentForm commentForm,Model model){
+    public String write_comment(@PathVariable("boardId") Long boardId,
+                         HttpServletRequest request,
+                         @ModelAttribute("commentForm") CommentForm commentForm,
+                         Model model){
 
         Long memberId = (Long) request.getSession().getAttribute("user_Id");
-        boardService.save_comment(boardId,commentForm.getUserName(),commentForm.getUserComment(),memberId);
+
+        Member member = memberService.findMember(memberId);
+
+        boardService.save_comment(boardId, member.getUserName(),
+                                    commentForm.getUserComment(),memberId);
 
         Board find_board = boardService.findOne(boardId);
         List<Comment> commentForms = boardService.findComments(boardId);
 
         BoardForm boardForm = new BoardForm();
         boardForm.setId(find_board.getId());
-        boardForm.setUserName(find_board.getUserName());
+        boardForm.setUserName(member.getUserName());
         boardForm.setTitle(find_board.getTitle());
         boardForm.setContent(find_board.getContent());
 
@@ -167,11 +204,6 @@ public class BoardController {
         model.addAttribute("commentForm",new CommentForm());
         return "board/view_board";
 
-//        return "board/"+boardId+"/view_board";
-//        String url = "board"+boardId+"/view_board";
-//        return new ModelAndView(url);
-        //return "board/view_board";
-        //return "home";
     }
 
     // 보드 댓글 가져오는거 됨 이거 view에 뿌려야됨
@@ -196,6 +228,7 @@ public class BoardController {
         boardService.board_remove(find_board);
 
         return "home";
+
     }
 
 

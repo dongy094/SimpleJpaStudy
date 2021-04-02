@@ -16,7 +16,9 @@ public class MemberRepository {
 
     // 회원 저장하기
     public void save(Member member){
+
         em.persist(member);
+
     }
 
     // 회원 찾기
@@ -40,7 +42,8 @@ public class MemberRepository {
     }
 
     public Member signinMember(String user_Name, Long pass_word){
-        return em.createQuery("select m from Member m where m.userName = :name and m.password = :pass_word", Member.class)
+        return em.createQuery("select m from Member m where m.userName" +
+                                     " = :name and m.password = :pass_word", Member.class)
                 .setParameter("name",user_Name)
                 .setParameter("pass_word",pass_word)
                 .getSingleResult();

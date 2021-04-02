@@ -68,12 +68,25 @@ public class BoardService {
         //Member member = memberRepository.findOne(memberId);
 
         // comment 생성
-        Comment comment = Comment.createComment(board, userName,userComment,userId);
-        
+        Comment comment = Comment.createComment(board, userName, userComment, userId);
+
         // comment 저장
         boardRepository.save_comment(comment);
 
     }
+
+    //0402
+    @Transactional
+    public void save_board(Long memberId, BoardForm boardForm){
+
+        Member find_member = memberRepository.findOne(memberId);
+
+        Board board = Board.createBoard(find_member, boardForm);
+
+        boardRepository.save(board);
+
+    }
+
 
     @Transactional
     public List<Comment> findComments(Long boardId){

@@ -24,12 +24,9 @@ public class Member {
 
     private Long password;
 
-//    @OneToMany(mappedBy = "member")
-//    private List<Comment> comments = new ArrayList<>();
 
-
-//    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
-//    private Comment comment;
+    @OneToMany(mappedBy = "member")
+    private List<Board> boards = new ArrayList<>();
 
 
 }
