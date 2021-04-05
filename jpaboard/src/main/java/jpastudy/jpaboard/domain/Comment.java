@@ -35,8 +35,10 @@ public class Comment {
 
     // 연관관계 메서드 //
     public void setBoard(Board board){
+
         this.board = board;
         board.getComments().add(this);
+
     }
 
 //    public void setMember(Member member){

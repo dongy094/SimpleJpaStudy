@@ -40,6 +40,7 @@ public class Board {
 
     //0402
     //연관관계 메서드
+
     public void setMember(Member member) {
         this.member = member;
         member.getBoards().add(this);

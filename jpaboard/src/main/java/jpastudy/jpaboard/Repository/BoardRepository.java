@@ -22,7 +22,9 @@ public class BoardRepository {
 
     //
     public Board findOne(Long id){
+
         return em.find(Board.class,id);
+
     }
 
     // 작성한 글 저장하기

@@ -1,5 +1,7 @@
 package jpastudy.jpaboard.Repository;
 
+import jpastudy.jpaboard.Dto.BoardForm;
+import jpastudy.jpaboard.Dto.MemberForm;
 import jpastudy.jpaboard.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -29,7 +32,8 @@ public class MemberRepository {
     
     // 회원 이름으로 찾기
     public List<Member> findByName(String name){
-        return em.createQuery("select m from Member m where m.userName = :name",Member.class)
+        return em.createQuery("select m from Member m " +
+                                      "where m.userName = :name",Member.class)
                 .setParameter("name",name)
                 .getResultList();
     }
@@ -41,12 +45,17 @@ public class MemberRepository {
                 .getResultList();
     }
 
-    public Member signinMember(String user_Name, Long pass_word){
+    public List<Member> signinMember(MemberForm memberForm){
+
+        String user_Name = memberForm.getUserName();
+        Long pass_word = memberForm.getPassword();
+
         return em.createQuery("select m from Member m where m.userName" +
                                      " = :name and m.password = :pass_word", Member.class)
                 .setParameter("name",user_Name)
                 .setParameter("pass_word",pass_word)
-                .getSingleResult();
+                .getResultList();
+
     }
 
 }

@@ -50,10 +50,10 @@ public class MemberServiceTest {
         Long memberId = memberService.join(member);
         //when
 
-        Member userA = memberService.signin("UserA", 1234L);
-        System.out.println("=========");
-        System.out.println("userA.getUserName() = " + userA.getUserName());
-        System.out.println("=========");
+//       // Member userA = memberService.signin("UserA", 1234L);
+//        System.out.println("=========");
+//        System.out.println("userA.getUserName() = " + userA.getUserName());
+//        System.out.println("=========");
 
         //then
     

@@ -62,6 +62,7 @@ public class BoardController {
     public String write(BoardForm boardForm, HttpServletRequest request){
 
         Long userId = (Long) request.getSession().getAttribute("user_Id");
+        //Long userId = memberService.findUserIdByName(boardForm.getUserName());
 
         //0402
         //Board board = new Board();
@@ -127,8 +128,10 @@ public class BoardController {
     }
 
     @PostMapping("/board/{boardId}/edit")
-    public String updateBoard(@PathVariable Long boardId ,
-                              @ModelAttribute("boardForm") BoardForm boardForm){
+    public String updateBoard(@PathVariable Long boardId,
+                              BoardForm boardForm){
+          boardService.updateBoard(boardId,boardForm);
+          return "home";
 
 //        Board board = new Board();
 //
@@ -144,10 +147,7 @@ public class BoardController {
 //        boardService.writeBoard(board);
 
           // 변경 감지를 통한 변경
-          boardService.updateBoard(boardId,boardForm);
 
-
-        return "home";
     }
 
     @GetMapping("/board/{boardId}/view_board")
@@ -162,7 +162,6 @@ public class BoardController {
 
         BoardForm boardForm = new BoardForm();
         boardForm.setId(find_board.getId());
-
 
         boardForm.setUserName(member.getUserName());
         boardForm.setTitle(find_board.getTitle());
@@ -180,7 +179,7 @@ public class BoardController {
     @PostMapping("/board/{boardId}/view_board")
     public String write_comment(@PathVariable("boardId") Long boardId,
                          HttpServletRequest request,
-                         @ModelAttribute("commentForm") CommentForm commentForm,
+                         CommentForm commentForm,
                          Model model){
 
         Long memberId = (Long) request.getSession().getAttribute("user_Id");

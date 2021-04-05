@@ -31,7 +31,9 @@ public class BoardService {
 
     //
     public Board findOne(Long boardId){
+
         return boardRepository.findOne(boardId);
+
     }
 
     

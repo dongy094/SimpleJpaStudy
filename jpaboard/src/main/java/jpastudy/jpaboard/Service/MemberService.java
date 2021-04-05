@@ -1,5 +1,6 @@
 package jpastudy.jpaboard.Service;
 
+import jpastudy.jpaboard.Dto.MemberForm;
 import jpastudy.jpaboard.Repository.MemberRepository;
 import jpastudy.jpaboard.domain.Member;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -19,21 +21,25 @@ public class MemberService {
     //가입하기
     @Transactional
     public Long join(Member member){
-        validateMember(member); // 회원 중복 검증
-        memberRepository.save(member);
-        return member.getId();
+            memberRepository.save(member);
+            return member.getId();
+
     }
 
-    public int validateMember(Member member) {
-        List<Member> members = memberRepository.findByName(member.getUserName());
+    public void validateMember(Member member) {
+        List<Member> members = memberRepository
+                               .findByName(member.getUserName());
+        int size = members.size();
 
-        int check = 0;
-        if(!members.isEmpty()){
-            check = 1;
-            //throw new IllegalStateException("이미 존재하는 회원 이름 ");
+        if(size>=1){
+            throw new IllegalStateException("이미 존재하는 회원 이름 ");
         }
-        return check;
 
+    }
+
+    public Long findUserIdByName(String userName){
+        List<Member> member = memberRepository.findByName(userName);
+        return member.get(0).getId();
     }
 
     //
@@ -45,10 +51,11 @@ public class MemberService {
         return memberRepository.membersAll();
     }
 
-    public Member signin(String user_name,
-                         Long user_password){
-        return memberRepository.signinMember(user_name,
-                                            user_password);
+    public List<Member> signin(MemberForm memberForm){
+
+        return memberRepository.signinMember(memberForm);
+
     }
+
 
 }
