@@ -39,21 +39,21 @@ DataBase : `H2 DataBase`
 
 |회원가입|글작성|
 |---|---|
-|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/signup.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/writeboard.gif?raw=true" width="450" height="400">|
+|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/gifFile/file1/signup.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/gifFile/file1/writeboard.gif?raw=true" width="450" height="400">|
 
 |글수정|글삭제|
 |---|---|
-|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/update_board.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/delete_board.gif?raw=true" width="450" height="400">|
+|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/gifFile/file1/update_board.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/gifFile/file1/delete_board.gif?raw=true" width="450" height="400">|
 |자신이 작성한 글만 수정|자신이 작성한 글만 삭제|
 
 |페이징처리|인터셉터처리|
 |---|---|
-|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file1/paging.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file2/interceptor.gif?raw=true" width="450" height="400">|
+|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/gifFile/file1/paging.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/gifFile/file2/interceptor.gif?raw=true" width="450" height="400">|
 ||비로그인시 인터셉터 처리|
 
 |로그인|댓글달기|
 |---|---|
-|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file2/singin.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/file2/commentFn.gif?raw=true" width="450" height="400">|
+|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/gifFile/file2/singin.gif?raw=true" width="450" height="400">|<img src="https://github.com/dongy094/SimpleJpaStudy/blob/main/gifFile/file2/commentFn.gif?raw=true" width="450" height="400">|
 
 
 
