@@ -71,6 +71,7 @@ INSERT INTO MEMBER(ID, NAME) VALUES ( ... )  ->  em.persist(member)
 SELECT * FROM MEMBER WHERE ID =  id값  ->  jpa.find(id값) 
 ```
 </br>
+
 - `JPArepository`를 상속받은 인터페이스를 활용한다면 간단한 `CRUD`는 구현필요없이 간단하게 가져다 쓸 수 있다는 것을 알았다.
 - 프로젝트를 진행하면서 일부 간단한 쿼리문 처리는 `JPArepository`를 상속받은 개체를 통해서 별다른 구현없이 또는 규칙에 맞게 인터페이스를 작성하면 손쉽게 데이터를 가져올 수 있다는 것을 알게되었다.
 여기서 구현한 인터페이스를 따로 작성할 필요가 없다.
