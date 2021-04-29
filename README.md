@@ -1,6 +1,6 @@
 # Simple JPA board
 ### 🔘 프로젝트 목적
-- Spring Boot, JPA를 활용해서 간단한 게시판 만들기
+- Spring Boot, JPA를 활용해서 게시판 만들기
 
 </br>
 
